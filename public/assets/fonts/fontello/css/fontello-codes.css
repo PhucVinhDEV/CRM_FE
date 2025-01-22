@@ -1,0 +1,25 @@
+
+.icon-info-circled:before { content: '\e800'; } /* '' */
+.icon-sun:before { content: '\e801'; } /* '' */
+.icon-globe:before { content: '\e802'; } /* '' */
+.icon-icon-arrow-yellow:before { content: '\e803'; } /* '' */
+.icon-market:before { content: '\e804'; } /* '' */
+.icon-wallet:before { content: '\e805'; } /* '' */
+.icon-guide:before { content: '\e806'; } /* '' */
+.icon-trade:before { content: '\e807'; } /* '' */
+.icon-chart:before { content: '\e808'; } /* '' */
+.icon-arrow-down:before { content: '\e809'; } /* '' */
+.icon-transfer:before { content: '\e80a'; } /* '' */
+.icon-fees:before { content: '\e80e'; } /* '' */
+.icon-help-center:before { content: '\e80f'; } /* '' */
+.icon-invite-friend:before { content: '\e810'; } /* '' */
+.icon-security:before { content: '\e811'; } /* '' */
+.icon-setting:before { content: '\e812'; } /* '' */
+.icon-transaction:before { content: '\e813'; } /* '' */
+.icon-instagram:before { content: '\f16d'; } /* '' */
+.icon-moon:before { content: '\f186'; } /* '' */
+.icon-telegram:before { content: '\f2c6'; } /* '' */
+.icon-twitter-circled:before { content: '\f30a'; } /* '' */
+.icon-linkedin-squared:before { content: '\f30c'; } /* '' */
+.icon-facebook-squared:before { content: '\f30e'; } /* '' */
+.icon-skype-circled:before { content: '\f33a'; } /* '' */

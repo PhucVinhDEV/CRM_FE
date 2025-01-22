@@ -1,0 +1,64 @@
+@import "./_reset";
+@import "./_fonts";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --primary: #3887fe;
+    --primary-bold: #1c4db6;
+    --primary-foreground: #afd8fe;
+  }
+}
+
+@layer utilities {
+  .scrollbarX::-webkit-scrollbar {
+    width: 10px;
+    height: 3.5px;
+    cursor: pointer;
+  }
+
+  .scrollbarX::-webkit-scrollbar-track {
+    border-radius: 100vh;
+    background: #f7f4ed;
+  }
+
+  .scrollbarX::-webkit-scrollbar-thumb {
+    background: #afafaf;
+    border-radius: 100vh;
+  }
+
+  .scrollbarY::-webkit-scrollbar {
+    width: 4px;
+    cursor: pointer;
+  }
+}
+
+::-webkit-scrollbar {
+  @apply h-1 w-2;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-[#f1f1f1] dark:bg-darkBase;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply rounded bg-[#bec6cb];
+}
+
+span:has(> span.hardZindex) {
+  z-index: 40;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  appearance: none;
+  -moz-appearance: textfield;
+}
