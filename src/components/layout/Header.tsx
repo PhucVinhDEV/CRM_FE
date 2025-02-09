@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import { Button } from "../ui/Button";
 
 const Header = () => {
   return (
@@ -9,16 +10,25 @@ const Header = () => {
           <Link href="/" className="text-xl font-bold">
             Logo
           </Link>
-          <div className="flex gap-4">
-            <Link href="/" className="hover:text-gray-600">
+          <div className="flex items-center gap-8">
+            <Link href="/" className="flex-1 text-center hover:text-gray-600">
               Home
             </Link>
-            <Link href="/about" className="hover:text-gray-600">
+            <Link
+              href="/about"
+              className="flex-1 text-center hover:text-gray-600"
+            >
               About
             </Link>
-            <Link href="/contact" className="hover:text-gray-600">
+            <Link
+              href="/contact"
+              className="flex-1 text-center hover:text-gray-600"
+            >
               Contact
             </Link>
+            <Button variant="ghost" size="sm" className="flex-1 text-center">
+              Signin
+            </Button>
           </div>
         </div>
       </nav>
