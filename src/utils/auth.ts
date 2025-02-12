@@ -11,6 +11,16 @@ export const decrypt = async (cookie: string | undefined) => {
   );
 };
 
+export const decryptSync = (cookie: string | undefined) => {
+  if (!cookie) return null;
+  try {
+    return JSON.parse(
+      Buffer.from(cookie.split(".")[1], "base64").toString("ascii"),
+    );
+  } catch (error) {
+    return null;
+  }
+};
 export const checkTokenExpired = (token: { exp: number }) => {
   if (!token) {
     return true;

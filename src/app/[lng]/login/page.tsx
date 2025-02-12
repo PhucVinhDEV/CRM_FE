@@ -1,6 +1,7 @@
 import { GalleryVerticalEnd } from "lucide-react";
 
 import { LoginForm } from "@/components/login/login-form";
+import MainFooter from "@/components/footers/MainFooter";
 
 export default function LoginPage() {
   return (
@@ -14,13 +15,13 @@ export default function LoginPage() {
             Acme Inc.
           </a>
         </div>
-        <div className="flex flex-1 items-center justify-center">
+        <div className="bg-grey flex flex-1 items-center justify-center">
           <div className="w-full max-w-xs">
             <LoginForm />
           </div>
         </div>
       </div>
-      <div className="bg-muted relative hidden lg:block">
+      <div className="bg-muted relative hidden bg-black lg:block">
         <img
           src="/images/CRM-New-Logo-1000.png"
           alt="Image"

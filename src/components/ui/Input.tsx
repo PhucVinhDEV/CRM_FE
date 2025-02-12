@@ -53,7 +53,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           {type === INPUT_TYPE.password ? (
             <span
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-2 top-1/2 translate-x-[-50%] translate-y-[-50%] cursor-pointer opacity-50 dark:text-whiteBase lg:dark:text-blackBase"
+              className="absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer opacity-75 transition-opacity hover:opacity-100"
             >
               {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
             </span>
