@@ -6,25 +6,26 @@ import { Input } from "@/components/ui/Input";
 import { Label } from "@/components/ui/Label";
 import { useState } from "react";
 import { AuthService } from "@/service/authService";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "@/reduxs/store";
+
 import { setUserProps } from "@/reduxs/UserSlice";
 import { IUserInfo } from "@/types/user";
 import { useToast } from "@/components/ui/use-toast"; // Import useToast
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/reduxs/store";
 export function LoginForm({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<"form">) {
   const dispatch = useDispatch<AppDispatch>();
-  const { userInfo, loading } = useSelector((state: RootState) => state.user);
+  // const { userInfo, loading } = useSelector((state: RootState) => state.user);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  // const [error, setError] = useState("");
   const { toast } = useToast();
   const handleSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
-    setError(""); // Clear previous error
+    // setError(""); // Clear previous error
     try {
       const response = await AuthService.login(email, password);
       // Fake example response matching IUserInfo
@@ -48,16 +49,22 @@ export function LoginForm({
           description: response.message,
           status: "error",
         });
-        setError("Invalid email or password");
+        // setError("Invalid email or password");
       }
-    } catch (err: any) {
-      console.error("Login failed:", err.message);
+    } catch (err: unknown) {
+      console.error("Login failed:", err);
+
+      let errorMessage = "Something went wrong. Please try again.";
+
+      if (err instanceof Error) {
+        errorMessage = err.message;
+      }
+
       toast({
         title: "Error",
-        description: "Something went wrong. Please try again.",
+        description: errorMessage,
         status: "error",
       });
-      setError("Something went wrong. Please try again.");
     }
   };
   return (

@@ -3,6 +3,7 @@ import Cookie from "js-cookie";
 
 import { ACCESS_TOKEN } from "@/utils/storage";
 import { TEMP_ACCESS_TOKEN } from "@/constants/auth";
+import { API_ENDPOINTS } from "./ApiEndpoint";
 
 const restConnector = (cookie?: string) => {
   const CreateRestConnector = axios.create({
@@ -28,7 +29,13 @@ const restConnector = (cookie?: string) => {
       return Promise.reject(error);
     },
   );
-
+  CreateRestConnector.interceptors.request.use((config) => {
+    const excludedUrls = [API_ENDPOINTS.AUTH.LOGIN, API_ENDPOINTS.AUTH.LOGOUT]; // Các API không cần token
+    if (excludedUrls.some((url) => config.url?.includes(url))) {
+      delete config.headers.Authorization;
+    }
+    return config;
+  });
   return CreateRestConnector;
 };
 

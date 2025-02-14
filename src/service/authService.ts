@@ -2,8 +2,9 @@ import Cookie from "js-cookie";
 import { ACCESS_TOKEN } from "../utils/storage";
 import { decryptSync, checkTokenExpired } from "../utils/auth";
 import { TokenResponse } from "@/types/user";
-
-const API_URL = process.env.NEXT_PUBLIC_STATIC_API_URL;
+import restConnector from "@/connectors/AxiosRestConnector";
+import { API_ENDPOINTS } from "@/connectors/ApiEndpoint";
+import axios from "axios";
 
 export const AuthService = {
   // called api login function
@@ -12,17 +13,18 @@ export const AuthService = {
     password: string,
   ): Promise<{ success: boolean; message: string }> {
     try {
-      const response = await fetch(`${API_URL}/auth/v1/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password }),
+      const response = await restConnector().post(API_ENDPOINTS.AUTH.LOGIN, {
+        username,
+        password,
       });
 
-      const data = await response.json();
-
-      if (!response.ok || data.status !== 1000 || !data.result.authenticated) {
-        console.error("Login failed:", data?.errors || "Unknown error");
-        return { success: false, message: data.errors };
+      const data = response.data;
+      if (data.status !== 1000 || !data.result.authenticated) {
+        console.error("Login failed:", data.errors || "Unknown error");
+        return {
+          success: false,
+          message: data.body.errors || "Authentication failed",
+        };
       }
 
       const tokenResponse: TokenResponse = data.result;
@@ -37,12 +39,19 @@ export const AuthService = {
       }
 
       return { success: false, message: "Unexpected error occurred." };
-    } catch (error) {
-      console.error("Login failed service:", error);
-      return {
-        success: false,
-        message: "Network error. Please try again later.",
-      };
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        const errResponse = error.response?.data;
+
+        return {
+          success: false,
+          message:
+            errResponse?.errors?.[0] || "Server error. Please try again.",
+        };
+      }
+
+      console.error("Unexpected error:", error);
+      return { success: false, message: "An unexpected error occurred." };
     }
   },
 
