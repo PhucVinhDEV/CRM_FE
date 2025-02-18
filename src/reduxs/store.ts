@@ -10,12 +10,12 @@ import {
   persistStore,
 } from "redux-persist";
 import storage from "@/utils/storage";
-import UserSlice from "./UserSlice";
+import UserSlice from "../reduxs/UserSlice";
 
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: [""],
+  whitelist: ["userInfo"],
 };
 const rootReducer = combineReducers({
   user: UserSlice,
@@ -30,6 +30,7 @@ export const store = configureStore({
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     }),
+  devTools: process.env.NODE_ENV !== "production",
 });
 
 export const persistor = persistStore(store);

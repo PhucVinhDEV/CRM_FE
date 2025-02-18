@@ -1,16 +1,18 @@
 import Cookie from "js-cookie";
 import { ACCESS_TOKEN } from "../utils/storage";
 import { decryptSync, checkTokenExpired } from "../utils/auth";
-import { TokenResponse } from "@/types/user";
+import { IUserInfo, IUserStateForData, TokenResponse } from "@/types/user";
 import restConnector from "@/connectors/AxiosRestConnector";
 import { API_ENDPOINTS } from "@/connectors/ApiEndpoint";
 import axios from "axios";
+import { AppDispatch } from "@/reduxs/store";
+import { setUserProps } from "@/reduxs/UserSlice";
 
 export const AuthService = {
-  // called api login function
   async login(
     username: string,
     password: string,
+    dispatch: AppDispatch,
   ): Promise<{ success: boolean; message: string }> {
     try {
       const response = await restConnector().post(API_ENDPOINTS.AUTH.LOGIN, {
@@ -19,6 +21,7 @@ export const AuthService = {
       });
 
       const data = response.data;
+
       if (data.status !== 1000 || !data.result.authenticated) {
         console.error("Login failed:", data.errors || "Unknown error");
         return {
@@ -35,6 +38,19 @@ export const AuthService = {
         Cookie.set("refresh_token", tokenResponse.token.refresh_token, {
           expires: 7,
         });
+        const userData: IUserInfo = {
+          id: "123123", // Fake ID
+          email: username, // Use current email
+        };
+        const responseState: IUserStateForData = {
+          userInfo: userData, // Ensure userInfo is passed correctly
+          loading: false, // Set loading to false after successful login
+          isWaitingTempJwt: false, // Set the flag according to your logic
+        };
+        console.log("Dispatching user data", responseState);
+        dispatch(setUserProps(responseState));
+        console.log("Dispatched action setUserProps");
+
         return { success: true, message: "Login successful!" };
       }
 

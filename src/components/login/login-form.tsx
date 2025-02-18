@@ -7,17 +7,18 @@ import { Label } from "@/components/ui/Label";
 import { useState } from "react";
 import { AuthService } from "@/service/authService";
 
-import { setUserProps } from "@/reduxs/UserSlice";
-import { IUserInfo } from "@/types/user";
 import { useToast } from "@/components/ui/use-toast"; // Import useToast
-import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/reduxs/store";
+import { useDispatch } from "react-redux";
+import { useRouter } from "next/navigation"; // ✅ Đúng cho App Router
+
 export function LoginForm({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<"form">) {
-  const dispatch = useDispatch<AppDispatch>();
   // const { userInfo, loading } = useSelector((state: RootState) => state.user);
+  const dispatch = useDispatch<AppDispatch>();
+  const router = useRouter(); // ✅ Đúng cho App Router
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -27,22 +28,16 @@ export function LoginForm({
     e.preventDefault();
     // setError(""); // Clear previous error
     try {
-      const response = await AuthService.login(email, password);
+      const response = await AuthService.login(email, password, dispatch);
       // Fake example response matching IUserInfo
-      console.log("response", response);
-      const userData: IUserInfo = {
-        id: "123123", // Fake ID
-        email: email, // Use current email
-      };
+
       if (response.success == true) {
-        // Fake example response for setUserProps
-        dispatch(setUserProps({ userInfo: userData, loading: false }));
         toast({
           title: "Login Successful",
           description: response.message,
           status: "success",
         });
-        console.log("Login success");
+        router.push("/");
       } else {
         toast({
           title: "Login Failed",

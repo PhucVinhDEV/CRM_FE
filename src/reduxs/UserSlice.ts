@@ -7,11 +7,12 @@ const initialState: IUserState = {
   isWaitingTempJwt: true,
 };
 
-const slice = createSlice({
-  name: "User Slice",
+const UserSlice = createSlice({
+  name: "user",
   initialState,
   reducers: {
     setUserProps(state, action: PayloadAction<IUserStateForData>) {
+      console.log("setUserProps dis path");
       return { ...state, ...action.payload };
     },
 
@@ -21,6 +22,6 @@ const slice = createSlice({
   },
 });
 
-export const { setUserProps, clearUserProps } = slice.actions;
+export const { setUserProps, clearUserProps } = UserSlice.actions;
 
-export default slice.reducer;
+export default UserSlice.reducer;
