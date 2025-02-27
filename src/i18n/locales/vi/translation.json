@@ -1,1 +1,10 @@
-{}
+{
+  "welcome_message": "Xin chào!",
+  "header": {
+    "logo": "Ứng dụng của tôi",
+    "home": "Trang chủ",
+    "about": "Giới thiệu",
+    "contact": "Liên hệ",
+    "signin": "Đăng nhập"
+  }
+}

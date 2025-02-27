@@ -4,14 +4,26 @@ import { cn } from "@/utils";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Label } from "@/components/ui/Label";
-import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { AuthService } from "@/service/authService";
-
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 import { useToast } from "@/components/ui/use-toast"; // Import useToast
 import { AppDispatch } from "@/reduxs/store";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation"; // ✅ Đúng cho App Router
+import { ROUTES } from "@/routes/routes";
 
+const loginSchema = yup.object({
+  email: yup
+    .string()
+    .email("Invalid email format")
+    .required("Email is required"),
+  password: yup
+    .string()
+    .min(6, "Password must be at least 6 characters")
+    .required("Password is required"),
+});
 export function LoginForm({
   className,
   ...props
@@ -19,51 +31,54 @@ export function LoginForm({
   // const { userInfo, loading } = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch<AppDispatch>();
   const router = useRouter(); // ✅ Đúng cho App Router
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  // const [error, setError] = useState("");
   const { toast } = useToast();
-  const handleSubmit = async (e: React.FormEvent): Promise<void> => {
-    e.preventDefault();
-    // setError(""); // Clear previous error
-    try {
-      const response = await AuthService.login(email, password, dispatch);
-      // Fake example response matching IUserInfo
+  // ✅ `useForm()` phải được khai báo ở đây, không được đặt trong `handleSubmit`
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm({
+    resolver: yupResolver(loginSchema), // ✅ Kết nối `yup` vào `react-hook-form`
+  });
 
-      if (response.success == true) {
+  // ✅ Xử lý submit
+  const onSubmit = async (data: { email: string; password: string }) => {
+    try {
+      const response = await AuthService.login(
+        data.email,
+        data.password,
+        dispatch,
+      );
+
+      if (response?.success) {
         toast({
-          title: "Login Successful",
-          description: response.message,
-          status: "success",
+          title: "🎉 Login Successful",
+          description: "Welcome back!",
+          variant: "default",
         });
-        router.push("/");
+        router.replace(ROUTES.HOME);
       } else {
         toast({
-          title: "Login Failed",
-          description: response.message,
-          status: "error",
+          title: "❌ Login Failed",
+          description: "Invalid email or password",
+          variant: "destructive",
         });
-        // setError("Invalid email or password");
       }
-    } catch (err: unknown) {
-      console.error("Login failed:", err);
-
-      let errorMessage = "Something went wrong. Please try again.";
-
-      if (err instanceof Error) {
-        errorMessage = err.message;
-      }
-
+    } catch (err: any) {
       toast({
-        title: "Error",
-        description: errorMessage,
-        status: "error",
+        title: "⚠️ Error",
+        description: err?.message || "Something went wrong. Please try again.",
+        variant: "destructive",
       });
     }
   };
+
   return (
-    <form className={cn("flex flex-col gap-6", className)} {...props}>
+    <form
+      className="flex flex-col gap-6"
+      onSubmit={handleSubmit(onSubmit)}
+      {...props}
+    >
       <div className="flex flex-col items-center gap-2 text-center">
         <h1 className="text-2xl font-bold">Login to your account</h1>
         <p className="text-muted-foreground text-balance text-sm">
@@ -77,30 +92,34 @@ export function LoginForm({
             id="email"
             type="email"
             placeholder="m@example.com"
-            onChange={(e) => setEmail(e.target.value)}
-            required
+            {...register("email")}
           />
+          {errors.email && (
+            <p className="text-sm text-red-500">{errors.email.message}</p>
+          )}
         </div>
         <div className="grid gap-2">
           <div className="flex items-center">
             <Label htmlFor="password">Password</Label>
-            <a
-              href="#"
-              className="ml-auto text-sm underline-offset-4 hover:underline"
+            <span
+              onClick={() => router.push(ROUTES.AUTH.FORGOT)}
+              className="ml-auto cursor-pointer text-sm underline-offset-4 hover:underline"
             >
               Forgot your password?
-            </a>
+            </span>
           </div>
           <Input
             id="password"
             type="password"
             placeholder="*******"
-            onChange={(e) => setPassword(e.target.value)}
-            required
+            {...register("password")}
           />
+          {errors.password && (
+            <p className="text-sm text-red-500">{errors.password.message}</p>
+          )}
         </div>
-        <Button type="submit" className="w-full" onClick={handleSubmit}>
-          Login
+        <Button type="submit" className="w-full" disabled={isSubmitting}>
+          {isSubmitting ? "Logging in..." : "Login"}
         </Button>
         <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
           <span className="bg-background text-muted-foreground relative z-10 px-2">
@@ -140,9 +159,12 @@ export function LoginForm({
       </div>
       <div className="text-center text-sm">
         Don&apos;t have an account?{" "}
-        <a href="#" className="underline underline-offset-4">
+        <span
+          onClick={() => router.push(ROUTES.AUTH.REGISTER)}
+          className="cursor-pointer underline underline-offset-4"
+        >
           Sign up
-        </a>
+        </span>
       </div>
     </form>
   );

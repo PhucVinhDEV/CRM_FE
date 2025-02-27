@@ -15,6 +15,7 @@ export const AuthService = {
     dispatch: AppDispatch,
   ): Promise<{ success: boolean; message: string }> {
     try {
+      // 🟢 Gửi request đăng nhập
       const response = await restConnector().post(API_ENDPOINTS.AUTH.LOGIN, {
         username,
         password,
@@ -22,51 +23,55 @@ export const AuthService = {
 
       const data = response.data;
 
+      // ❌ Kiểm tra nếu response không hợp lệ
       if (data.status !== 1000 || !data.result.authenticated) {
-        console.error("Login failed:", data.errors || "Unknown error");
         return {
           success: false,
           message: data.body.errors || "Authentication failed",
         };
       }
 
+      // 🟢 Lấy token từ response
       const tokenResponse: TokenResponse = data.result;
-      if (tokenResponse.authenticated) {
-        Cookie.set("access_token", tokenResponse.token.access_token, {
-          expires: 1,
-        });
-        Cookie.set("refresh_token", tokenResponse.token.refresh_token, {
-          expires: 7,
-        });
-        const userData: IUserInfo = {
-          id: "123123", // Fake ID
-          email: username, // Use current email
-        };
-        const responseState: IUserStateForData = {
-          userInfo: userData, // Ensure userInfo is passed correctly
-          loading: false, // Set loading to false after successful login
-          isWaitingTempJwt: false, // Set the flag according to your logic
-        };
-        console.log("Dispatching user data", responseState);
-        dispatch(setUserProps(responseState));
-        console.log("Dispatched action setUserProps");
-
-        return { success: true, message: "Login successful!" };
+      if (!tokenResponse.authenticated) {
+        return { success: false, message: "Unexpected authentication error." };
       }
 
-      return { success: false, message: "Unexpected error occurred." };
-    } catch (error: unknown) {
-      if (axios.isAxiosError(error)) {
-        const errResponse = error.response?.data;
+      // ✅ Lưu token vào cookie
+      Cookie.set("access_token", tokenResponse.token.access_token, {
+        expires: 1,
+      });
+      Cookie.set("refresh_token", tokenResponse.token.refresh_token, {
+        expires: 7,
+      });
 
+      // ✅ Cập nhật Redux store với thông tin người dùng
+      const userData: IUserInfo = {
+        id: "123123", // Fake ID (Cần lấy ID thật nếu có)
+        email: username,
+      };
+
+      const responseState: IUserStateForData = {
+        userInfo: userData,
+        loading: false,
+        isWaitingTempJwt: false,
+      };
+
+      dispatch(setUserProps(responseState));
+
+      return { success: true, message: "Login successful!" };
+    } catch (error) {
+      // ❌ Xử lý lỗi từ API (Axios)
+      if (axios.isAxiosError(error)) {
         return {
           success: false,
           message:
-            errResponse?.errors?.[0] || "Server error. Please try again.",
+            error.response?.data?.errors?.[0] ||
+            "Server error. Please try again.",
         };
       }
 
-      console.error("Unexpected error:", error);
+      // ❌ Xử lý lỗi bất ngờ khác
       return { success: false, message: "An unexpected error occurred." };
     }
   },
