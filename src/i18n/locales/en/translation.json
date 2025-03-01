@@ -1,10 +1,12 @@
 {
-  "welcome_message": "Xin chào!",
-  "header": {
-    "logo": "My Application",
-    "home": "Home",
-    "about": "About Us",
-    "contact": "Contact",
-    "signin": "Sign In"
+  "navbar": {
+    "logo": "ShadcnUI/React",
+    "features": "Features",
+    "testimonials": "Testimonials",
+    "pricing": "Pricing",
+    "faq": "FAQ",
+    "github": "Github",
+    "menuIcon": "Menu Icon",
+    "sheetTitle": "Shadcn/React"
   }
 }

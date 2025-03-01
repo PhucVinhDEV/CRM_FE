@@ -1,4 +1,21 @@
-export const NAV_MENU = [];
+export const NAV_MENU = [
+  {
+    href: "/home",
+    label: "Features",
+  },
+  {
+    href: "/testimonials",
+    label: "Testimonials",
+  },
+  {
+    href: "/pricing",
+    label: "Pricing",
+  },
+  {
+    href: "/faq",
+    label: "FAQ",
+  },
+];
 
 export const FOOTER_MENU = [
   {

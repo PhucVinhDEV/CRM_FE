@@ -20,7 +20,7 @@ export default function LoginPage() {
           </div>
         </div>
       </div>
-      <div className="bg-muted relative hidden bg-black lg:block">
+      <div className="relative hidden bg-black bg-muted lg:block">
         <img
           src="/images/CRM-New-Logo-1000.png"
           alt="Image"

@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import routes from "@/routes";
 
-// import "@/styles/globals.css";
+import "../styles/index.scss";
 const isAuthenticated = () => {
   return (
     typeof window !== "undefined" &&

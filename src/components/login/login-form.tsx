@@ -1,6 +1,5 @@
 "use client";
 
-import { cn } from "@/utils";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Label } from "@/components/ui/Label";
@@ -25,7 +24,6 @@ const loginSchema = yup.object({
     .required("Password is required"),
 });
 export function LoginForm({
-  className,
   ...props
 }: React.ComponentPropsWithoutRef<"form">) {
   // const { userInfo, loading } = useSelector((state: RootState) => state.user);
@@ -64,10 +62,10 @@ export function LoginForm({
           variant: "destructive",
         });
       }
-    } catch (err: any) {
+    } catch (err) {
       toast({
         title: "⚠️ Error",
-        description: err?.message || "Something went wrong. Please try again.",
+        description: "Something went wrong. Please try again.",
         variant: "destructive",
       });
     }
@@ -81,7 +79,7 @@ export function LoginForm({
     >
       <div className="flex flex-col items-center gap-2 text-center">
         <h1 className="text-2xl font-bold">Login to your account</h1>
-        <p className="text-muted-foreground text-balance text-sm">
+        <p className="text-balance text-sm text-muted-foreground">
           Enter your email below to login to your account
         </p>
       </div>
@@ -122,7 +120,7 @@ export function LoginForm({
           {isSubmitting ? "Logging in..." : "Login"}
         </Button>
         <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
-          <span className="bg-background text-muted-foreground relative z-10 px-2">
+          <span className="bg-background relative z-10 px-2 text-muted-foreground">
             Or continue with
           </span>
         </div>

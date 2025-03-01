@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo } from "react";
 import { useParams } from "next/navigation";
 import i18next, { FlatNamespace, KeyPrefix } from "i18next";
 import {

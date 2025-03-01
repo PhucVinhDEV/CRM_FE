@@ -1,10 +1,12 @@
 {
-  "welcome_message": "Xin chào!",
-  "header": {
-    "logo": "Ứng dụng của tôi",
-    "home": "Trang chủ",
-    "about": "Giới thiệu",
-    "contact": "Liên hệ",
-    "signin": "Đăng nhập"
+  "navbar": {
+    "logo": "ShadcnUI/React",
+    "features": "Tính năng",
+    "testimonials": "Lời chứng thực",
+    "pricing": "Bảng giá",
+    "faq": "Câu hỏi thường gặp",
+    "github": "Github",
+    "menuIcon": "Biểu tượng Menu",
+    "sheetTitle": "Shadcn/React"
   }
 }

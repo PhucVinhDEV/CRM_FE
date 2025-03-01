@@ -14,24 +14,53 @@ const config: Config = {
     extend: {
       colors: {
         primary: {
-          DEFAULT: "var(--primary)",
-          bold: "var(--primary-bold)",
-          foreground: "hsl(var(--primary-foreground))",
+          DEFAULT: "hsl(var(--primary))",
+          bold: "hsl(var(--primary-bold))",
+          border: "hsl(var(--border))",
+          input: "hsl(var(--input))",
+          ring: "hsl(var(--ring))",
+          background: "hsl(var(--background))",
+          foreground: "hsl(var(--foreground))",
         },
-        whiteBase: "#FFFFFF",
-        grayBase: "#ebedf1",
+        secondary: {
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
+        },
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
+        },
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
+        },
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
+        },
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
+        },
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
+        },
+
+        whiteBase: "#FFFFFF", // Màu sáng cho chế độ sáng
+        grayBase: "#ebedf1", // Màu nền sáng
         gray300: "#f6f7f8",
         gray400: "#f7f8fa",
         gray500: "#afafaf",
         gray600: "#8c8c8c",
-        grayDark: "#65686C",
+        grayDark: "#65686C", // Màu chữ cho chế độ sáng
         grayDarkest: "#323436",
         grayBlue400: "#87909f",
         yellowBase: "#FCD535",
         orangeBase: "#F0B926",
         purpleBase: "#8f4cee",
-        blackBase: "#0d0e0f",
-        blueBase: "#3887fe",
+        blackBase: "#0d0e0f", // Màu nền tối
+        blueBase: "#3887fe", // Màu xanh dương
         greenBase: "#1DC167",
         greenDark: "#0E8A5F",
         green500: "#d9f2eb",
@@ -50,7 +79,7 @@ const config: Config = {
         blue900: "#0A2579",
       },
       backgroundColor: {
-        darkBase: "#0d0e0f",
+        darkBase: "#0d0e0f", // Màu nền tối
         dark300: "#25272c",
         dark400: "#141414",
         dark500: "#171721",
@@ -66,6 +95,11 @@ const config: Config = {
         black400: "#222429",
         bgray500: "#e4e6e8",
         bgray400: "#292b2e",
+      },
+      borderRadius: {
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
       },
       keyframes: {
         "accordion-down": {
