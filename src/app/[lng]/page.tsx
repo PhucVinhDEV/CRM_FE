@@ -2,7 +2,6 @@ import { About } from "@/components/landingpage/About";
 import { HeroSection } from "@/components/landingpage/HeroSection";
 import { Pricing } from "@/components/landingpage/Pricing";
 import NoFooterContentLayout from "@/components/layouts/NoFooterContentLayout";
-import HomeBanner from "@/components/pages/home/home-banners/HomeBanner";
 
 export default async function Home() {
   return (

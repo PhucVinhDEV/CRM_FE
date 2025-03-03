@@ -14,13 +14,15 @@ import {
 } from "../ui/Sheet";
 
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
-import { buttonVariants } from "../ui/Button";
+import { Button, buttonVariants } from "../ui/Button";
 import { Menu } from "lucide-react";
 import { ModeToggle } from "../ui/mode-toggle";
 import LanguageSwitcher from "../component/LanguageSwitcher";
 import CSRLink from "../commons/custom-links/CSRLink";
 import { NAV_MENU } from "@/constants/menu";
 import { useTranslation } from "@/i18n/client";
+import useRouterWithLng from "@/hooks/useRouterWithLng";
+import { ROUTES } from "@/routes/routes";
 
 interface RouteProps {
   href: string;
@@ -48,6 +50,7 @@ const routeList: RouteProps[] = [
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const { t } = useTranslation(); // useTranslation hook for i18n
+  const router = useRouterWithLng();
   return (
     <header className="sticky top-0 z-40 w-full border-b-[1px] bg-white dark:border-b-slate-700 dark:bg-black dark:text-white">
       <NavigationMenu className="mx-auto">
@@ -125,17 +128,15 @@ export const Navbar = () => {
               </a>
             ))}
           </nav>
-
           <div className="hidden gap-2 md:flex">
-            <a
-              rel="noreferrer noopener"
-              href="https://github.com/leoMirandaa/shadcn-landing-page.git"
-              target="_blank"
-              className={`border ${buttonVariants({ variant: "default" })}`}
+            <Button
+              onClick={() => router(ROUTES.AUTH.LOGIN)}
+              variant="outline"
+              className="w-full transition-colors hover:border-gray-400 hover:bg-gray-100 focus:ring-2 focus:ring-gray-200"
             >
-              <GitHubLogoIcon className="mr-2 h-5 w-5" />
-              Github
-            </a>
+              {" "}
+              Singin
+            </Button>
             <LanguageSwitcher />
             <ModeToggle />
           </div>

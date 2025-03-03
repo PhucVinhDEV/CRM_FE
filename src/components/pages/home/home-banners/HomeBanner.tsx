@@ -2,8 +2,6 @@
 
 import { About } from "@/components/landingpage/About";
 import { HeroSection } from "@/components/landingpage/HeroSection";
-import { Navbar } from "@/components/landingpage/Navbar";
-import { useTranslation } from "@/i18n/client";
 
 const HomeBanner = () => {
   return (
