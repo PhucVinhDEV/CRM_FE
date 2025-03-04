@@ -11,13 +11,8 @@ import { Moon, Sun } from "lucide-react";
 import { THEME } from "@/constants/common";
 
 export function ModeToggle() {
-  const { theme, setTheme } = useTheme();
-  console.log("ModeToggle: Initial render with theme:", theme);
-
+  const { setTheme } = useTheme();
   const handleThemeChange = (newTheme: THEME) => {
-    console.log("handleThemeChange called with:", newTheme);
-    console.log("Current theme before update:", theme);
-
     // Cập nhật theme trực tiếp mà không cần setTimeout
     setTheme(newTheme);
   };

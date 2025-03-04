@@ -30,6 +30,7 @@ export function LoginForm({
   const dispatch = useDispatch<AppDispatch>();
   const router = useRouter(); // ✅ Đúng cho App Router
   const { toast } = useToast();
+
   // ✅ `useForm()` phải được khai báo ở đây, không được đặt trong `handleSubmit`
   const {
     register,
@@ -58,7 +59,7 @@ export function LoginForm({
       } else {
         toast({
           title: "❌ Login Failed",
-          description: "Invalid email or password",
+          description: response.message,
           variant: "destructive",
         });
       }

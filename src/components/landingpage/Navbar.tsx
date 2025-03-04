@@ -23,6 +23,8 @@ import { NAV_MENU } from "@/constants/menu";
 import { useTranslation } from "@/i18n/client";
 import useRouterWithLng from "@/hooks/useRouterWithLng";
 import { ROUTES } from "@/routes/routes";
+import { useSelector } from "react-redux";
+import { selectUserInfo } from "@/reduxs/UserSelector";
 
 interface RouteProps {
   href: string;
@@ -49,8 +51,10 @@ const routeList: RouteProps[] = [
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const userInfo = useSelector(selectUserInfo);
   const { t } = useTranslation(); // useTranslation hook for i18n
   const router = useRouterWithLng();
+  console.log("userInfo", userInfo);
   return (
     <header className="sticky top-0 z-40 w-full border-b-[1px] bg-white dark:border-b-slate-700 dark:bg-black dark:text-white">
       <NavigationMenu className="mx-auto">

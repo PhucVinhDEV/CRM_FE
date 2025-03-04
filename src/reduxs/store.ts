@@ -15,7 +15,7 @@ import UserSlice from "../reduxs/UserSlice";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["userInfo"],
+  whitelist: ["user"],
 };
 const rootReducer = combineReducers({
   user: UserSlice,

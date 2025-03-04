@@ -1,6 +1,15 @@
 export interface IUserInfo {
-  id: string;
+  id: string; // UUID
   email: string;
+  dayOfBirth: string; // Date (ISO format: YYYY-MM-DD)
+  roleId: string; // UUID
+  profilePicture: string;
+  status: string;
+  lastLogin: string; // DateTime (ISO format: YYYY-MM-DDTHH:mm:ssZ)
+  companyName: string;
+  emailDomain: string;
+  companyAddress: string;
+  phoneNumber: string;
 }
 
 export interface IUserState {
@@ -16,9 +25,5 @@ export interface IUserStateForData {
 }
 
 export interface TokenResponse {
-  authenticated: boolean;
-  token: {
-    access_token: string;
-    refresh_token: string;
-  };
+  access_token: string;
 }

@@ -15,3 +15,11 @@ export interface IBaseResponseError {
   errors: string[]; // Danh sách thông báo lỗi
   timestamp: string; // Thời gian xảy ra lỗi
 }
+export interface ApiResponse<T> {
+  status?: number; // Mặc định là 1000 nếu không có
+  hasErrors: boolean;
+  result?: T;
+  errors?: string[];
+  timestamp?: string;
+  message?: string;
+}

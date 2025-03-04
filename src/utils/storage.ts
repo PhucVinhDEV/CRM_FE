@@ -1,4 +1,5 @@
-export const ACCESS_TOKEN = "jwt";
+export const ACCESS_TOKEN = "ACCESS_TOKEN";
+export const REFRESH_TOKEN = "REFRESH_TOKEN";
 
 import createWebStorage from "redux-persist/lib/storage/createWebStorage";
 

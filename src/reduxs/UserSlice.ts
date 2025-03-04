@@ -12,7 +12,7 @@ const UserSlice = createSlice({
   initialState,
   reducers: {
     setUserProps(state, action: PayloadAction<IUserStateForData>) {
-      console.log("setUserProps dis path");
+      console.log("setUserProps dis path", action.payload);
       return { ...state, ...action.payload };
     },
 
