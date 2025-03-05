@@ -25,6 +25,7 @@ import useRouterWithLng from "@/hooks/useRouterWithLng";
 import { ROUTES } from "@/routes/routes";
 import { useSelector } from "react-redux";
 import { selectUserInfo } from "@/reduxs/UserSelector";
+import { UserNav } from "../ui/UserNav";
 
 interface RouteProps {
   href: string;
@@ -133,14 +134,17 @@ export const Navbar = () => {
             ))}
           </nav>
           <div className="hidden gap-2 md:flex">
-            <Button
-              onClick={() => router(ROUTES.AUTH.LOGIN)}
-              variant="outline"
-              className="w-full transition-colors hover:border-gray-400 hover:bg-gray-100 focus:ring-2 focus:ring-gray-200"
-            >
-              {" "}
-              Singin
-            </Button>
+            {userInfo ? (
+              <UserNav userInfo={userInfo} /> // ✅ Truyền userInfo qua props
+            ) : (
+              <Button
+                onClick={() => router(ROUTES.AUTH.LOGIN)}
+                variant="outline"
+                className="w-full transition-colors hover:border-gray-400 hover:bg-gray-100 focus:ring-2 focus:ring-gray-200"
+              >
+                {t("navbar.signin")}
+              </Button>
+            )}
             <LanguageSwitcher />
             <ModeToggle />
           </div>
