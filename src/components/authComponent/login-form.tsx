@@ -8,8 +8,6 @@ import { AuthService } from "@/service/authService";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useToast } from "@/components/ui/use-toast"; // Import useToast
-import { AppDispatch } from "@/reduxs/store";
-import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation"; // ✅ Đúng cho App Router
 import { ROUTES } from "@/routes/routes";
 
