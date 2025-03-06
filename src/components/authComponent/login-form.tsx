@@ -8,8 +8,6 @@ import { AuthService } from "@/service/authService";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useToast } from "@/components/ui/use-toast"; // Import useToast
-import { AppDispatch } from "@/reduxs/store";
-import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation"; // ✅ Đúng cho App Router
 import { ROUTES } from "@/routes/routes";
 
@@ -27,7 +25,6 @@ export function LoginForm({
   ...props
 }: React.ComponentPropsWithoutRef<"form">) {
   // const { userInfo, loading } = useSelector((state: RootState) => state.user);
-  const dispatch = useDispatch<AppDispatch>();
   const router = useRouter(); // ✅ Đúng cho App Router
   const { toast } = useToast();
 
@@ -43,11 +40,7 @@ export function LoginForm({
   // ✅ Xử lý submit
   const onSubmit = async (data: { email: string; password: string }) => {
     try {
-      const response = await AuthService.login(
-        data.email,
-        data.password,
-        dispatch,
-      );
+      const response = await AuthService.login(data.email, data.password);
 
       if (response?.success) {
         toast({
