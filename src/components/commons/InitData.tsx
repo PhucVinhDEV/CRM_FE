@@ -1,13 +1,14 @@
 import { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
 
 import { isProduction } from "@/utils";
-import { KEY_JWT } from "@/constants/common";
+
 import { getCurrentUser } from "@/apis/author.api";
 import SetDataToRedux from "@/components/commons/SetDataToRedux";
+import { ACCESS_TOKEN } from "@/utils/storage";
 
 const getDataCurrentUser = async (cookie: ReadonlyRequestCookies) => {
   try {
-    const token = cookie.get(KEY_JWT); // Find cookie
+    const token = cookie.get(ACCESS_TOKEN); // Find cookie
     if (!token) return null;
 
     const data = await getCurrentUser(token?.value);

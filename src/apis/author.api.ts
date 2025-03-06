@@ -37,9 +37,9 @@ export const login = async (values: { email: string; password: string }) => {
 };
 
 // ✅ Lấy thông tin người dùng hiện tại
-export const getCurrentUser = async () => {
+export const getCurrentUser = async (cookie?: string) => {
   try {
-    const { data } = await restConnector().get(API_ENDPOINTS.AUTH.MYSELF);
+    const { data } = await restConnector(cookie).get(API_ENDPOINTS.AUTH.MYSELF);
 
     // Kiểm tra nếu API không có lỗi và `result` tồn tại
     if (data && !data.hasErrors && data.result) {

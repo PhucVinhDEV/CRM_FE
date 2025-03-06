@@ -5,11 +5,11 @@
 import { ThemeProvider } from "next-themes";
 import { THEME, THEME_LOCAL_STORAGE_KEY } from "@/constants/common";
 
-import { Sidebar } from "../layout/dashboard/SideBar";
 import Footer from "../layout/Footer";
 import { useSelector } from "react-redux";
 import { RootState } from "@/reduxs/store";
 import { cn } from "@/utils";
+import Sidebar from "../layout/dashboard/SideBar";
 
 const DashboardPanelLayout = ({
   children,
