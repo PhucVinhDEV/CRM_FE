@@ -27,7 +27,6 @@ export function LoginForm({
   ...props
 }: React.ComponentPropsWithoutRef<"form">) {
   // const { userInfo, loading } = useSelector((state: RootState) => state.user);
-  const dispatch = useDispatch<AppDispatch>();
   const router = useRouter(); // ✅ Đúng cho App Router
   const { toast } = useToast();
 
@@ -43,11 +42,7 @@ export function LoginForm({
   // ✅ Xử lý submit
   const onSubmit = async (data: { email: string; password: string }) => {
     try {
-      const response = await AuthService.login(
-        data.email,
-        data.password,
-        dispatch,
-      );
+      const response = await AuthService.login(data.email, data.password);
 
       if (response?.success) {
         toast({
