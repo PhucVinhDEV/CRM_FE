@@ -1,5 +1,6 @@
 export interface IUserInfo {
   id: string; // UUID
+  fullName: string; // User name
   email: string;
   dayOfBirth: string; // Date (ISO format: YYYY-MM-DD)
   roleId: string; // UUID
@@ -10,6 +11,14 @@ export interface IUserInfo {
   emailDomain: string;
   companyAddress: string;
   phoneNumber: string;
+  benefit: Benefit;
+}
+
+export interface Benefit {
+  name: string;
+  email: number;
+  customer: number;
+  price: number;
 }
 
 export interface IUserState {
