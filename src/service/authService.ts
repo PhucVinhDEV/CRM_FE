@@ -3,13 +3,16 @@ import { ACCESS_TOKEN } from "../utils/storage";
 import { decryptSync, checkTokenExpired } from "../utils/auth";
 
 import axios from "axios";
-import { login } from "@/apis/author.api";
+import { AppDispatch } from "@/reduxs/store";
+import { setUserProps } from "@/reduxs/UserSlice";
+import { getCurrentUser, login } from "@/apis/author.api";
 import { ApiResponse } from "@/types";
 
 export const AuthService = {
   async login(
     email: string,
     password: string,
+    dispatch: AppDispatch,
   ): Promise<{ success: boolean; message: string }> {
     try {
       // 🟢 Gọi API login (API đã có `try-catch` nên ném lỗi lên đây)
@@ -32,16 +35,16 @@ export const AuthService = {
         };
       }
 
-      // // ✅ Cập nhật Redux store với thông tin người dùng
-      // const userData = await getCurrentUser();
-      // console.log("userData", userData);
-      // dispatch(
-      //   setUserProps({
-      //     userInfo: userData,
-      //     loading: false,
-      //     isWaitingTempJwt: false,
-      //   }),
-      // );
+      // ✅ Cập nhật Redux store với thông tin người dùng
+      const userData = await getCurrentUser();
+      console.log("userData", userData);
+      dispatch(
+        setUserProps({
+          userInfo: userData,
+          loading: false,
+          isWaitingTempJwt: false,
+        }),
+      );
 
       return { success: true, message: "Login successful!" };
     } catch (error) {

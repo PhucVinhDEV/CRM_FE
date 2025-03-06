@@ -31,6 +31,7 @@ const restConnector = (cookie?: string) => {
       Authorization: `Bearer ${cookie ? cookie : Cookie.get(ACCESS_TOKEN)}`,
     },
   });
+
   // ✅ Interceptor cho response: xử lý khi token hết hạn
   CreateRestConnector.interceptors.response.use(
     (response) => response,

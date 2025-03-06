@@ -37,17 +37,17 @@ export const login = async (values: { email: string; password: string }) => {
 };
 
 // ✅ Lấy thông tin người dùng hiện tại
-export const getCurrentUser = async (token: string) => {
+export const getCurrentUser = async () => {
   try {
-    const { data } = await restConnector(token).get(API_ENDPOINTS.AUTH.MYSELF);
+    const { data } = await restConnector().get(API_ENDPOINTS.AUTH.MYSELF);
 
+    // Kiểm tra nếu API không có lỗi và `result` tồn tại
     if (data && !data.hasErrors && data.result) {
       return data.result; // Trả về `result` thay vì `null`
     }
 
-    return null;
+    return null; // Trả về `null` nếu có lỗi
   } catch (error) {
-    console.error("error APi", error);
     if (!isProduction) console.error("GetCurrentUser Error:", error);
     return null;
   }
