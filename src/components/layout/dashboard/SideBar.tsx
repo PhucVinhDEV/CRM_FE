@@ -10,9 +10,10 @@ import { PanelsTopLeft } from "lucide-react";
 import Link from "next/link";
 import { RootState } from "@/reduxs/store";
 
-export function Sidebar() {
+export default function Sidebar() {
   const dispatch = useDispatch();
   const { isOpen, settings } = useSelector((state: RootState) => state.sidebar);
+
   return (
     <aside
       className={cn(
@@ -21,7 +22,7 @@ export function Sidebar() {
         settings.disabled && "hidden",
       )}
     >
-      <SidebarToggle isOpen={isOpen} setIsOpen={toggleOpen} />
+      <SidebarToggle isOpen={isOpen} setIsOpen={() => dispatch(toggleOpen())} />
       <div
         onMouseEnter={() => dispatch(setIsHover(true))}
         onMouseLeave={() => dispatch(setIsHover(false))}
