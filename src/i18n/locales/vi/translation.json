@@ -1,0 +1,13 @@
+{
+  "navbar": {
+    "logo": "ShadcnUI/React",
+    "features": "Tính năng",
+    "testimonials": "Lời chứng thực",
+    "pricing": "Bảng giá",
+    "faq": "Câu hỏi thường gặp",
+    "github": "Github",
+    "menuIcon": "Biểu tượng Menu",
+    "sheetTitle": "Shadcn/React",
+    "signin" : "Đăng Nhập"
+  }
+}

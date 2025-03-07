@@ -1,0 +1,12 @@
+export const ReplaceCharacterRegex = /[^0-9]/g;
+export const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+export const phoneNumberRegex = /^\+?\d{10,13}$/;
+export const passwordRegexOneLowerLetter = /[a-z]/;
+export const passwordRegexOneUpperLetter = /[A-Z]/;
+export const passwordRegexOneNumber = /[0-9]/;
+export const passwordRegexOneSpecialCharacter = /[^a-zA-Z0-9.]/;
+export const passwordRegexNoSpace = /^\S*$/;
+export const verifyCodeRegex = /^\d{6}$/;
+export const txHashRegex = /^0x[a-fA-F0-9]{64}$/;
+export const twoDecimalRegex = /^-?\d+(?:\.\d{0,2})?/;
+export const fourDecimalRegex = /^-?\d+(?:\.\d{0,4})?/;

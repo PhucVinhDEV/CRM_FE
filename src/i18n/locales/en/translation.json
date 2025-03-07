@@ -1,0 +1,13 @@
+{
+  "navbar": {
+    "logo": "ShadcnUI/React",
+    "features": "Features",
+    "testimonials": "Testimonials",
+    "pricing": "Pricing",
+    "faq": "FAQ",
+    "github": "Github",
+    "menuIcon": "Menu Icon",
+    "sheetTitle": "Shadcn/React",
+    "signin" : "Signin"
+  }
+}
