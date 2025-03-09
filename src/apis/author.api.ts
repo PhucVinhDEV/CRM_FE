@@ -1,6 +1,7 @@
 import { isProduction } from "@/utils";
 import restConnector from "@/connectors/AxiosRestConnector";
 import { API_ENDPOINTS } from "@/connectors/ApiEndpoint";
+import axios from "axios";
 
 // ✅ Đăng ký tài khoản
 export const register = async (values: {
@@ -41,6 +42,37 @@ export const getCurrentUser = async (token: string) => {
   try {
     const { data } = await restConnector(token).get(API_ENDPOINTS.AUTH.MYSELF);
 
+    if (data && !data.hasErrors && data.result) {
+      return data.result; // Trả về `result` thay vì `null`
+    }
+
+    return null;
+  } catch (error) {
+    console.error("error APi", error);
+    if (!isProduction) console.error("GetCurrentUser Error:", error);
+    return null;
+  }
+};
+
+export const OauthOutboundGoogle = async (
+  code: string,
+  RedirectURI: string,
+  codeVerifier: string,
+) => {
+  try {
+    const baseURL =
+      process.env.NEXT_PUBLIC_STATIC_API_URL ||
+      "http://localhost:8080/bitznomad";
+    const url = `${baseURL}${API_ENDPOINTS.AUTH.OUTBOUND}`;
+    const { data } = await axios.post(
+      url,
+      { code, RedirectURI, codeVerifier },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    );
     if (data && !data.hasErrors && data.result) {
       return data.result; // Trả về `result` thay vì `null`
     }

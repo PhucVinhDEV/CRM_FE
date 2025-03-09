@@ -41,6 +41,7 @@
     "classnames": "^2.5.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.0.0",
+    "crypto-js": "^4.2.0",
     "date-fns": "^2.30.0",
     "dayjs": "^1.11.11",
     "embla-carousel-react": "^8.1.6",
@@ -59,6 +60,7 @@
     "pino-pretty": "^11.2.2",
     "prettier": "^3.3.2",
     "prettier-plugin-tailwindcss": "^0.6.9",
+    "query-string": "^9.1.1",
     "react": "^18",
     "react-cookie": "^7.1.4",
     "react-day-picker": "^8.7.1",
@@ -81,6 +83,7 @@
   },
   "devDependencies": {
     "@types/ali-oss": "^6.16.11",
+    "@types/crypto-js": "^4.2.2",
     "@types/js-cookie": "^3.0.6",
     "@types/node": "^20",
     "@types/react": "^18",

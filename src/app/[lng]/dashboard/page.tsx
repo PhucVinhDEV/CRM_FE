@@ -1,8 +1,3 @@
-// File: Dashboard.tsx
-
-import { About } from "@/components/landingpage/About";
-import { HeroSection } from "@/components/landingpage/HeroSection";
-import { Pricing } from "@/components/landingpage/Pricing";
 import NoFooterContentLayout from "@/components/layouts/NoFooterContentLayout";
 
 export default async function Home() {

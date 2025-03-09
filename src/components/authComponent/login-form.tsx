@@ -8,7 +8,7 @@ import { AuthService } from "@/service/authService";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useToast } from "@/components/ui/use-toast"; // Import useToast
-import { useRouter } from "next/navigation"; // ✅ Đúng cho App Router
+import { useParams, useRouter } from "next/navigation"; // ✅ Đúng cho App Router
 import { ROUTES } from "@/routes/routes";
 
 const loginSchema = yup.object({
@@ -27,6 +27,7 @@ export function LoginForm({
   // const { userInfo, loading } = useSelector((state: RootState) => state.user);
   const router = useRouter(); // ✅ Đúng cho App Router
   const { toast } = useToast();
+  const { lng } = useParams();
 
   // ✅ `useForm()` phải được khai báo ở đây, không được đặt trong `handleSubmit`
   const {
@@ -121,6 +122,7 @@ export function LoginForm({
         <Button
           variant="outline"
           className="w-full transition-colors hover:border-gray-400 hover:bg-gray-100 focus:ring-2 focus:ring-gray-200"
+          onClick={() => AuthService.initiateLogin(lng)}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
