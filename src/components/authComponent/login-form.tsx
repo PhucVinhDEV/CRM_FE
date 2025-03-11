@@ -12,6 +12,7 @@ import { AppDispatch } from "@/reduxs/store";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation"; // ✅ Đúng cho App Router
 import { ROUTES } from "@/routes/routes";
+import useRouterWithLng from "@/hooks/useRouterWithLng";
 
 const loginSchema = yup.object({
   email: yup
@@ -27,9 +28,9 @@ export function LoginForm({
   ...props
 }: React.ComponentPropsWithoutRef<"form">) {
   // const { userInfo, loading } = useSelector((state: RootState) => state.user);
-  const dispatch = useDispatch<AppDispatch>();
-  const router = useRouter(); // ✅ Đúng cho App Router
+  const router = useRouterWithLng(); // ✅ Đúng cho App Router
   const { toast } = useToast();
+  const { lng } = useParams();
 
   // ✅ `useForm()` phải được khai báo ở đây, không được đặt trong `handleSubmit`
   const {
@@ -45,8 +46,7 @@ export function LoginForm({
     try {
       const response = await AuthService.login(
         data.email,
-        data.password,
-        dispatch,
+        data.password
       );
 
       if (response?.success) {
@@ -55,7 +55,7 @@ export function LoginForm({
           description: "Welcome back!",
           variant: "default",
         });
-        router.replace(ROUTES.HOME);
+        router(ROUTES.HOME, undefined, true);
       } else {
         toast({
           title: "❌ Login Failed",
@@ -101,7 +101,7 @@ export function LoginForm({
           <div className="flex items-center">
             <Label htmlFor="password">Password</Label>
             <span
-              onClick={() => router.push(ROUTES.AUTH.FORGOT)}
+              onClick={() => router(ROUTES.AUTH.FORGOT)}
               className="ml-auto cursor-pointer text-sm underline-offset-4 hover:underline"
             >
               Forgot your password?
@@ -128,6 +128,7 @@ export function LoginForm({
         <Button
           variant="outline"
           className="w-full transition-colors hover:border-gray-400 hover:bg-gray-100 focus:ring-2 focus:ring-gray-200"
+          onClick={() => AuthService.initiateLogin(lng)}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -159,7 +160,7 @@ export function LoginForm({
       <div className="text-center text-sm">
         Don&apos;t have an account?{" "}
         <span
-          onClick={() => router.push(ROUTES.AUTH.REGISTER)}
+          onClick={() => router(ROUTES.AUTH.REGISTER)}
           className="cursor-pointer underline underline-offset-4"
         >
           Sign up

@@ -5,4 +5,7 @@ export const ROUTES = {
     FORGOT: "/auth/forgot",
     REGISTER: "/auth/register",
   },
+  DASHBOARD: {
+    HOME: "/",
+  },
 };

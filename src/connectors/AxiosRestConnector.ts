@@ -52,6 +52,8 @@ const restConnector = (cookie?: string) => {
       API_ENDPOINTS.AUTH.LOGIN,
       API_ENDPOINTS.AUTH.LOGOUT,
       API_ENDPOINTS.AUTH.REFRESH_TOKEN,
+      API_ENDPOINTS.AUTH.SEND_OTP,
+      API_ENDPOINTS.AUTH.VERIFY_OTP,
     ]; // Các API không cần token
     if (excludedUrls.some((url) => config.url?.includes(url))) {
       delete config.headers.Authorization;
@@ -60,5 +62,4 @@ const restConnector = (cookie?: string) => {
   });
   return CreateRestConnector;
 };
-
 export default restConnector;
