@@ -36,3 +36,10 @@ export interface IUserStateForData {
 export interface TokenResponse {
   access_token: string;
 }
+
+export interface IRequestOTPAndRegister {
+  email: string;
+  fullName: string;
+  password: string;
+  otp: string;
+}

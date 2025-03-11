@@ -2,6 +2,7 @@ import { isProduction } from "@/utils";
 import restConnector from "@/connectors/AxiosRestConnector";
 import { API_ENDPOINTS } from "@/connectors/ApiEndpoint";
 import axios from "axios";
+import { IRequestOTPAndRegister } from "@/types/user";
 
 // ✅ Đăng ký tài khoản
 export const register = async (values: {
@@ -54,6 +55,7 @@ export const getCurrentUser = async (token: string) => {
   }
 };
 
+// ✅ Đăng nhập với google
 export const OauthOutboundGoogle = async (
   code: string,
   RedirectURI: string,
@@ -80,7 +82,32 @@ export const OauthOutboundGoogle = async (
     return null;
   } catch (error) {
     console.error("error APi", error);
-    if (!isProduction) console.error("GetCurrentUser Error:", error);
+    if (!isProduction) console.error("Outbound Google Error:", error);
     return null;
+  }
+};
+
+export const sendOTP = async (email: string) => {
+  try {
+    const { data } = await restConnector().post(API_ENDPOINTS.AUTH.SEND_OTP, {
+      email: email,
+    });
+    return data;
+  } catch (error) {
+    if (!isProduction) console.error("SendOTP Error:", error);
+    throw error;
+  }
+};
+
+export const VerifyOTP = async (values: IRequestOTPAndRegister) => {
+  try {
+    const { data } = await restConnector().post(
+      API_ENDPOINTS.AUTH.VERIFY_OTP,
+      values,
+    );
+    return data;
+  } catch (error) {
+    if (!isProduction) console.error("SendOTP Error:", error);
+    throw error;
   }
 };

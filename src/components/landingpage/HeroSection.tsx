@@ -16,7 +16,7 @@ export const HeroSection = () => {
           Giải pháp{" "}
           <h2 className="inline">
             <span className="inline bg-gradient-to-r from-[#61DAFB] via-[#1fc0f1] to-[#03a3d7] bg-clip-text text-transparent">
-              CRM & Marketing Automation
+              Email Marketing Automation
             </span>{" "}
             toàn diện
           </h2>
@@ -30,7 +30,6 @@ export const HeroSection = () => {
 
         <div className="space-y-4 md:space-x-4 md:space-y-0">
           <Button className="w-full md:w-1/3">Get Started</Button>
-
           <a
             rel="noreferrer noopener"
             href="https://github.com/leoMirandaa/shadcn-landing-page.git"

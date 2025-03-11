@@ -7,6 +7,8 @@ export const API_ENDPOINTS = {
     VERIFY_TOKEN: "/api/v1/auth/verify-token",
     OUTBOUND: "/api/v1/auth/outbound",
     MYSELF: "/api/v1/auth/myself",
+    SEND_OTP: "/api/v1/auth/SendOTP",
+    VERIFY_OTP: "/api/v1/auth/VerifyOTP",
   },
   USER: {
     LIST: "/api/v1/User",

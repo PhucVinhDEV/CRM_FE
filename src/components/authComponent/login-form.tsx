@@ -8,8 +8,9 @@ import { AuthService } from "@/service/authService";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useToast } from "@/components/ui/use-toast"; // Import useToast
-import { useParams, useRouter } from "next/navigation"; // ✅ Đúng cho App Router
+import { useParams } from "next/navigation"; // ✅ Đúng cho App Router
 import { ROUTES } from "@/routes/routes";
+import useRouterWithLng from "@/hooks/useRouterWithLng";
 
 const loginSchema = yup.object({
   email: yup
@@ -25,7 +26,7 @@ export function LoginForm({
   ...props
 }: React.ComponentPropsWithoutRef<"form">) {
   // const { userInfo, loading } = useSelector((state: RootState) => state.user);
-  const router = useRouter(); // ✅ Đúng cho App Router
+  const router = useRouterWithLng(); // ✅ Đúng cho App Router
   const { toast } = useToast();
   const { lng } = useParams();
 
@@ -49,7 +50,7 @@ export function LoginForm({
           description: "Welcome back!",
           variant: "default",
         });
-        router.replace(ROUTES.HOME);
+        router(ROUTES.HOME, undefined, true);
       } else {
         toast({
           title: "❌ Login Failed",
@@ -95,7 +96,7 @@ export function LoginForm({
           <div className="flex items-center">
             <Label htmlFor="password">Password</Label>
             <span
-              onClick={() => router.push(ROUTES.AUTH.FORGOT)}
+              onClick={() => router(ROUTES.AUTH.FORGOT)}
               className="ml-auto cursor-pointer text-sm underline-offset-4 hover:underline"
             >
               Forgot your password?
@@ -154,7 +155,7 @@ export function LoginForm({
       <div className="text-center text-sm">
         Don&apos;t have an account?{" "}
         <span
-          onClick={() => router.push(ROUTES.AUTH.REGISTER)}
+          onClick={() => router(ROUTES.AUTH.REGISTER)}
           className="cursor-pointer underline underline-offset-4"
         >
           Sign up
