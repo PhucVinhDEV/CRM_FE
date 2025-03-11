@@ -1,5 +1,3 @@
-// File: Dashboard.tsx
-
 import NoFooterContentLayout from "@/components/layouts/NoFooterContentLayout";
 
 export default async function Home() {
